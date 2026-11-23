@@ -12,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .casework_routes import router as operational_cases
 from .operations_evidence import router as operations_evidence
+from .spotcheck_routes import router as spotcheck_quota
 from .auth import create_token, current_user, hash_password, require_roles
 from .db import connection, init_schema
 from .middlewares.request_context import AuditRequestMiddleware
@@ -29,6 +30,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="电梯年检不合格项复核", version="1.0.0", lifespan=lifespan)
 app.include_router(operational_cases)
 app.include_router(operations_evidence)
+app.include_router(spotcheck_quota)
 app.add_middleware(AuditRequestMiddleware)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 

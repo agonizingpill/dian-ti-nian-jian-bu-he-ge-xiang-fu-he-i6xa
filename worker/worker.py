@@ -29,7 +29,7 @@ def process(job_id):
         result = classify(features)
         with db_conn() as conn:
             with conn.cursor() as cur:
-                cur.execute("""UPDATE analysis_jobs SET status='completed',prediction=%s,probability=%s,path_rules_json=%s,completed_at=%s WHERE id=%s""", (result["prediction"], result["probability"], json.dumps({"rules": result["path_rules"], "model": result["model"], "features": features}, ensure_ascii=False), datetime.utcnow(), job_id))
+                cur.execute("""UPDATE analysis_jobs SET status='completed',prediction=%s,probability=%s,path_rules_json=%s,completed_at=%s WHERE id=%s""", (result["prediction"], result["probability"], json.dumps({"rules": result["path_rules"], "model": result["model"], "features": features, "leaf_id": result["leaf_id"], "leaf_key": result["leaf_key"], "branch": result["branch"], "branch_text": result["branch_text"]}, ensure_ascii=False), datetime.utcnow(), job_id))
                 cur.execute("UPDATE lifts SET status=IF(status='under_review','rectification',status) WHERE id=%s", (job["lift_id"],))
     except Exception as exc:
         with db_conn() as conn:

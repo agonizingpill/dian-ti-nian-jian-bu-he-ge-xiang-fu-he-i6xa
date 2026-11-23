@@ -43,6 +43,7 @@ services:
       MYSQL_USER: ${MYSQL_USER:-lift_user}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-lift_pass}
       JWT_SECRET: ${JWT_SECRET:-gb1066-demo-secret}
+      SPOTCHECK_DAILY_QUOTA: ${SPOTCHECK_DAILY_QUOTA:-3}
       REDIS_URL: redis://redis:6379/0
       PYTHONUNBUFFERED: "1"
     ports:
